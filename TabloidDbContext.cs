@@ -9,22 +9,8 @@ public class TabloidDbContext : IdentityDbContext<IdentityUser>
     private readonly IConfiguration _configuration;
 
     public DbSet<UserProfile> UserProfiles { get; set; }
+    public DbSet<Post> Posts { get; set; }
 
-    //comment - c
-
-    //post - t
-
-    //category - c
-
-    //userprofile
-
-    //posttag
-
-    //reactionpost
-
-    //tag - c
-
-    //reaction
 
 
     public TabloidDbContext(DbContextOptions<TabloidDbContext> context, IConfiguration config) : base(context)
@@ -161,5 +147,33 @@ public class TabloidDbContext : IdentityDbContext<IdentityUser>
                 IdentityUserId = "d224a03d-bf0c-4a05-b728-e3521e45d74d",
             }
         });
+            modelBuilder.Entity<Category>().HasData(new Category[]
+            {
+                new Category { Id = 1, Name = "Help" },
+                new Category { Id = 2, Name = "Politics" },
+                new Category { Id = 3, Name = "Animals" },
+                new Category { Id = 4, Name = "Sports" },
+                new Category { Id = 5, Name = "Music" },
+                new Category { Id = 6, Name = "Art" },
+            });
+            modelBuilder.Entity<Tag>().HasData(new Tag[]
+            {
+                new Tag { Id = 1, Name = "Help" },
+                new Tag { Id = 2, Name = "Politics" },
+                new Tag { Id = 3, Name = "Animals" },
+                new Tag { Id = 4, Name = "Sports" },
+                new Tag { Id = 5, Name = "Music" },
+                new Tag { Id = 6, Name = "Art" },
+            });
+
+            modelBuilder.Entity<Post>().HasData(new Post[]
+            {
+                new Post { Id = 1, Title = "Why Does My Cat Bite My Leg?", UserProfileId = 1, Content = "I need help. My cat keeps biting my leg.", CategoryId = 1, HeaderImageUrl = "https://robohash.org/numquamutut.png?size=150x150&set=set1", PublicationDate = new DateTime(2025, 1, 7), ReadTime = 50 },
+                new Post { Id = 2, Title = "California Raisin", UserProfileId = 2, Content = "Hey! Does anybody remember the California Raisin guy?", CategoryId = 1, HeaderImageUrl = "https://robohash.org/numquamutut.png?size=150x150&set=set1", PublicationDate = new DateTime(2025, 1, 4), ReadTime = 5 },
+                new Post { Id = 3, Title = "Why Does My Cat Bite My Leg?", UserProfileId = 5, Content = "I need help. My cat keeps biting my leg.", CategoryId = 1, HeaderImageUrl = "https://robohash.org/numquamutut.png?size=150x150&set=set1", PublicationDate = new DateTime(2025, 1, 1), ReadTime = 5 },
+                new Post { Id = 4, Title = "Why Does My Cat Bite My Leg?", UserProfileId = 6, Content = "I need help. My cat keeps biting my leg.", CategoryId = 1, HeaderImageUrl = "https://robohash.org/numquamutut.png?size=150x150&set=set1", PublicationDate = new DateTime(2025, 1, 2), ReadTime = 5 },
+                new Post { Id = 5, Title = "Why Does My Cat Bite My Leg?", UserProfileId = 4, Content = "I need help. My cat keeps biting my leg.", CategoryId = 1, HeaderImageUrl = "https://robohash.org/numquamutut.png?size=150x150&set=set1", PublicationDate = new DateTime(2025, 1, 4), ReadTime = 5 },
+                new Post { Id = 6, Title = "Why Does My Cat Bite My Leg?", UserProfileId = 3, Content = "I need help. My cat keeps biting my leg.", CategoryId = 1, HeaderImageUrl = "https://robohash.org/numquamutut.png?size=150x150&set=set1", PublicationDate = new DateTime(2025, 1, 5), ReadTime = 5 },
+            });
     }
 }
