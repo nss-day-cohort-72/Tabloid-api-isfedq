@@ -10,7 +10,28 @@ public class TabloidDbContext : IdentityDbContext<IdentityUser>
 
     public DbSet<UserProfile> UserProfiles { get; set; }
     public DbSet<Post> Posts { get; set; }
+    public DbSet<Category> Categories { get; set; }
+    public DbSet<Comment> Comments { get; set; }
+    public DbSet<Tag> PostTags { get; set; }
+    public DbSet<Reaction> ReactionPosts { get; set; }
+    
 
+
+    //comment - c
+
+    //post - t
+
+    //category - c
+
+    //userprofile
+
+    //posttag
+
+    //reactionpost
+
+    //tag - c
+
+    //reaction
 
 
     public TabloidDbContext(DbContextOptions<TabloidDbContext> context, IConfiguration config) : base(context)
