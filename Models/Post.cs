@@ -13,5 +13,5 @@ public class Post
     public Category Category { get; set; }
     public string HeaderImageUrl { get; set; }
     public DateTime PublicationDate { get; set; }
-    public TimeSpan ReadTime { get; set; }
+    public int ReadTime { get; set; }
 }
