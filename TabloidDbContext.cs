@@ -16,24 +16,6 @@ public class TabloidDbContext : IdentityDbContext<IdentityUser>
     public DbSet<Reaction> ReactionPosts { get; set; }
     
 
-
-    //comment - c
-
-    //post - t
-
-    //category - c
-
-    //userprofile
-
-    //posttag
-
-    //reactionpost
-
-    //tag - c
-
-    //reaction
-
-
     public TabloidDbContext(DbContextOptions<TabloidDbContext> context, IConfiguration config) : base(context)
     {
         _configuration = config;
@@ -167,6 +149,50 @@ public class TabloidDbContext : IdentityDbContext<IdentityUser>
                 ImageLocation = "https://robohash.org/hicnihilipsa.png?size=150x150&set=set1",
                 IdentityUserId = "d224a03d-bf0c-4a05-b728-e3521e45d74d",
             }
+        });
+        modelBuilder.Entity<Category>().HasData(new Category[]
+        {
+            new Category { Id = 1, Name = "Help" },
+            new Category { Id = 2, Name = "Food" },
+            new Category { Id = 3, Name = "Animals" },
+            new Category { Id = 4, Name = "Misc" },
+            new Category { Id = 5, Name = "Vacationing" },
+            new Category { Id = 6, Name = "Tech" },
+        });
+        
+        modelBuilder.Entity<Tag>().HasData(new Tag[]
+        {
+            new Tag { Id = 1, Name = "Fun" },
+            new Tag { Id = 2, Name = "Sad" },
+            new Tag { Id = 3, Name = "Ouch" },
+        });
+
+        modelBuilder.Entity<Reaction>().HasData(new Reaction[]
+        {
+            new Reaction { Id = 1, Name = "👍" },
+            new Reaction { Id = 2, Name = "🤢" },
+            new Reaction { Id = 3, Name = "🤣" },
+            new Reaction { Id = 4, Name = "❤" },
+        });
+
+        modelBuilder.Entity<Post>().HasData(new Post[]
+        {
+            new Post { Id = 1, Title = "Why Does My Cat Bite My Leg?", UserProfileId = 1, Content = "I need help. My cat keeps biting my leg.", CategoryId = 1, HeaderImageUrl = "https://robohash.org/numquamutut.png?size=150x150&set=set1", PublicationDate = new DateTime(2025, 1, 7), ReadTime = 50 },
+            new Post { Id = 2, Title = "California Raisin", UserProfileId = 2, Content = "Hey! Does anybody remember the California Raisin guy?", CategoryId = 4, HeaderImageUrl = "https://robohash.org/numquamutut.png?size=150x150&set=set1", PublicationDate = new DateTime(2025, 1, 4), ReadTime = 30 },
+            new Post { Id = 3, Title = "The Future of AI", UserProfileId = 3, Content = "Exploring the advancements in AI technology.", CategoryId = 6, HeaderImageUrl = "https://robohash.org/futureai.png?size=150x150&set=set1", PublicationDate = new DateTime(2025, 2, 10), ReadTime = 25 },
+            new Post { Id = 4, Title = "Healthy Eating", UserProfileId = 4, Content = "Tips and tricks for a healthier diet.", CategoryId = 2, HeaderImageUrl = "https://robohash.org/healthyeating.png?size=150x150&set=set1", PublicationDate = new DateTime(2025, 3, 15), ReadTime = 60 },
+            new Post { Id = 5, Title = "Traveling the World", UserProfileId = 5, Content = "A guide to traveling the world on a budget.", CategoryId = 5, HeaderImageUrl = "https://robohash.org/travelworld.png?size=150x150&set=set1", PublicationDate = new DateTime(2025, 4, 20), ReadTime = 110 },
+            new Post { Id = 6, Title = "Tech Innovations", UserProfileId = 6, Content = "Latest innovations in the tech industry.", CategoryId = 6, HeaderImageUrl = "https://robohash.org/techinnovations.png?size=150x150&set=set1", PublicationDate = new DateTime(2025, 5, 25), ReadTime = 130 },
+        });
+        modelBuilder.Entity<Comment>().HasData(new Comment[]
+        {
+            new Comment { Id = 1, PostId = 1, UserProfileId = 1, Subject = "Ouch!", Content = "I'm sorry to hear that. Have you tried giving your cat a toy to play with instead?", CreationDate = new DateTime(2025, 1, 7) },
+            new Comment { Id = 2, PostId = 1, UserProfileId = 2, Subject = "Re: Ouch!", Content = "I have! But my cat still prefers my leg.", CreationDate = new DateTime(2025, 1, 8) },
+            new Comment { Id = 3 , PostId = 2, UserProfileId = 3, Subject = "California Raisin", Content = "Yes! I remember the California Raisin guy. He was so cool.", CreationDate = new DateTime(2025, 1, 9) },
+            new Comment { Id = 4, PostId = 3, UserProfileId = 4, Subject = "AI Technology", Content = "I'm excited to see where AI technology will take us in the future.", CreationDate = new DateTime(2025, 1, 10) },
+            new Comment { Id = 5 , PostId = 4, UserProfileId = 5, Subject = "Healthy Eating", Content = "Thanks for the tips! I'll definitely try them out.", CreationDate = new DateTime(2025, 1, 15) },
+            new Comment { Id = 6, PostId = 5, UserProfileId = 6, Subject = "Traveling the World", Content = "I've always wanted to travel the world. This guide is really helpful.", CreationDate = new DateTime(2025, 1, 8) },
+
         });
     }
 }
