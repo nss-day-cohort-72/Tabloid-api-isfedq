@@ -150,6 +150,13 @@ public class TabloidDbContext : IdentityDbContext<IdentityUser>
                 IdentityUserId = "d224a03d-bf0c-4a05-b728-e3521e45d74d",
             }
         });
+        modelBuilder.Entity<Subscription>().HasData(new Subscription[]
+        {
+            new Subscription { Id = 1, AuthorId = 1, SubscriberId = 2, StartDate = new DateTime(2024, 1, 25) },
+            new Subscription { Id = 2, AuthorId = 1, SubscriberId = 3, StartDate = new DateTime(2024, 1, 22) },
+            new Subscription { Id = 3, AuthorId = 2, SubscriberId = 4, StartDate = new DateTime(2024, 1, 20) },
+            new Subscription { Id = 4, AuthorId = 3, SubscriberId = 5, StartDate = new DateTime(2024, 1, 18) },
+        });
         modelBuilder.Entity<Category>().HasData(new Category[]
         {
             new Category { Id = 1, Name = "Help" },
