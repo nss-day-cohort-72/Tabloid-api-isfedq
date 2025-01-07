@@ -8,10 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
-<<<<<<< HEAD
-=======
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
->>>>>>> 2bbc142b1fb48dd6b27a4c75de4108d337764f79
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
