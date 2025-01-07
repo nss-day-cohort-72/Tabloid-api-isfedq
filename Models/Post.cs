@@ -14,4 +14,7 @@ public class Post
     public string HeaderImageUrl { get; set; }
     public DateTime PublicationDate { get; set; }
     public int ReadTime { get; set; }
+    public List<Comment> Comments { get; set; }
+    public List<Tag> Tags { get; set; }
+    public List<PostReaction> PostReactions { get; set; }
 }

@@ -12,8 +12,8 @@ public class TabloidDbContext : IdentityDbContext<IdentityUser>
     public DbSet<Post> Posts { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Comment> Comments { get; set; }
-    public DbSet<Tag> PostTags { get; set; }
-    public DbSet<Reaction> ReactionPosts { get; set; }
+    public DbSet<Tag> Tags { get; set; }
+    public DbSet<Reaction> Reactions { get; set; }
     
 
     public TabloidDbContext(DbContextOptions<TabloidDbContext> context, IConfiguration config) : base(context)
@@ -194,5 +194,31 @@ public class TabloidDbContext : IdentityDbContext<IdentityUser>
             new Comment { Id = 6, PostId = 5, UserProfileId = 6, Subject = "Traveling the World", Content = "I've always wanted to travel the world. This guide is really helpful.", CreationDate = new DateTime(2025, 1, 8) },
 
         });
+        modelBuilder.Entity<PostReaction>().HasData( new PostReaction[]
+        {
+            new PostReaction {Id=1, PostId = 1, ReactionId = 1, UserProfileId = 1 },
+            new PostReaction {Id=2, PostId = 1, ReactionId = 2, UserProfileId = 2 },
+            new PostReaction {Id=3, PostId = 2, ReactionId = 3, UserProfileId = 3 },
+            new PostReaction {Id=4, PostId = 3, ReactionId = 4, UserProfileId = 4 },
+            new PostReaction {Id=5, PostId = 4, ReactionId = 1, UserProfileId = 5 },
+            new PostReaction {Id=6, PostId = 5, ReactionId = 2, UserProfileId = 6 },
+            new PostReaction {Id=7, PostId = 6, ReactionId = 3, UserProfileId = 1 }
+        });
+
+      
+        modelBuilder.Entity<Post>()
+        .HasMany(p => p.Tags)
+        .WithMany(t => t.Posts)
+        .UsingEntity(j => j.HasData(
+            new { PostsId = 1, TagsId = 3 },
+            new { PostsId = 1, TagsId = 2 },
+            new { PostsId = 2, TagsId = 1 },
+            new { PostsId = 3, TagsId = 1 },
+            new { PostsId = 4, TagsId = 1 },
+            new { PostsId = 5, TagsId = 1 },
+            new { PostsId = 6, TagsId = 3 }
+            
+        ));
+        
     }
 }
