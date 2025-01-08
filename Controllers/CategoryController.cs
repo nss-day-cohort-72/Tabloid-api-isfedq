@@ -3,8 +3,9 @@ using Tabloid.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
 using Microsoft.AspNetCore.Identity;
+using Tabloid.Models.DTOs;
+
 namespace Tabloid.Controllers;
 
 [ApiController]
@@ -20,39 +21,72 @@ public class CategoryController : ControllerBase
     public IActionResult Get()
     {
         var categories = _context.Categories;
-        return Ok(categories);
+        List<CategoryWithPostsDTO> categoriesDTO = categories.Select(c => new CategoryWithPostsDTO
+        {
+            Id = c.Id,
+            Name = c.Name,
+            Posts = c.Posts.Select(p => new PostsByCategoryDTO
+            {
+                Id = p.Id,
+                Title = p.Title,
+                UserProfileId = p.UserProfileId,
+                Content = p.Content,
+                CategoryId = p.CategoryId,
+                Approved = p.Approved,
+                HeaderImageUrl = p.HeaderImageUrl,
+                
+            }).ToList()
+            
+        }).ToList();
+        return Ok(categoriesDTO);
     }
 
     [HttpGet("{id}")]
     public IActionResult Get(int id)
     {
-        var category = _context.Categories
-            .FirstOrDefault(c => c.Id == id);
+        var category = _context.Categories.FirstOrDefault(c => c.Id == id);
+        CategoryDTO categoryDTO = new CategoryDTO
+        {
+            Id = category.Id,
+            Name = category.Name
+        };
+        if (categoryDTO == null)
+        {
+            return NotFound();
+        }
+        return Ok(categoryDTO);
+    }
+
+    [HttpPost]
+    public IActionResult Post(CategoryDTO categoryDTO)
+    {
+        Category category = new Category
+        {
+            Name = categoryDTO.Name
+        };
+        _context.Add(category);
+        _context.SaveChanges();
+        return Ok($"{category.Name} with id of {category.Id} was added to the database");
+        // return CreatedAtAction("Get", new { id = category.Id }, category);
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult Put(int id, CategoryDTO categoryDTO)
+    {
+        string originalName = categoryDTO.Name;
+        if (id != categoryDTO.Id)
+        {
+            return BadRequest();
+        }
+        Category category = _context.Categories.FirstOrDefault(c => c.Id == id);
         if (category == null)
         {
             return NotFound();
         }
-        return Ok(category);
-    }
+        category.Name = categoryDTO.Name;
 
-    [HttpPost]
-    public IActionResult Post(Category category)
-    {
-        _context.Add(category);
         _context.SaveChanges();
-        return CreatedAtAction("Get", new { id = category.Id }, category);
-    }
-
-    [HttpPut("{id}")]
-    public IActionResult Put(int id, Category category)
-    {
-        if (id != category.Id)
-        {
-            return BadRequest();
-        }
-        _context.Entry(category).State = EntityState.Modified;
-        _context.SaveChanges();
-        return NoContent();
+        return Ok($"Category {originalName} has been changed to {category.Name}");
     }
 
     [HttpDelete("{id}")]
