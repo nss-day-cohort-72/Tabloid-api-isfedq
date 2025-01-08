@@ -212,7 +212,7 @@ public class TabloidDbContext : IdentityDbContext<IdentityUser>
             new PostReaction {Id=7, PostId = 6, ReactionId = 3, UserProfileId = 1 }
         });
 
-      
+
         modelBuilder.Entity<Post>()
         .HasMany(p => p.Tags)
         .WithMany(t => t.Posts)
