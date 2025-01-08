@@ -8,8 +8,16 @@ public class AutoMapperProfiles : Profile
     {
 
         
-        CreateMap<Post, PostDTO>();
-        CreateMap<UserProfile,UserProfileForPostDTO >();
+        CreateMap<Post, AllPostListDTO>();
+        CreateMap<Post, PostDetailDTO>();
+        CreateMap<Comment, CommentDTO>();
+        CreateMap<Tag,TagDTO >();
+        CreateMap<PostReaction, PostReactionDTO>();
+        CreateMap<Reaction, ReactionDTO>();
+        CreateMap<Category, CategoryDTO>();
+        CreateMap<UserProfile, UserProfileForPostDTO>();
+        
+  
         
         
 
