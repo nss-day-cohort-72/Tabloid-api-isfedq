@@ -227,5 +227,8 @@ public class TabloidDbContext : IdentityDbContext<IdentityUser>
             
         ));
         
+         modelBuilder.Entity<Comment>()
+        .Property(c => c.CreationDate) // Or `CreatedAt`, depending on your actual property name
+        .HasDefaultValueSql("GETDATE()");
     }
 }
