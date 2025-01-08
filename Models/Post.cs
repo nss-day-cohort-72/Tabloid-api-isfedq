@@ -10,6 +10,7 @@ public class Post
     public UserProfile UserProfile { get; set; }
     public string Content { get; set; }
     public int CategoryId { get; set; }
+    public bool Approved { get; set; }
     public Category Category { get; set; }
     public string HeaderImageUrl { get; set; }
     public DateTime PublicationDate { get; set; }
