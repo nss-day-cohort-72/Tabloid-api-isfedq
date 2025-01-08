@@ -8,7 +8,7 @@ public class AutoMapperProfiles : Profile
     {
 
         
-        CreateMap<Post, PostDTO>();
+        CreateMap<Post, AllPostListDTO>();
         CreateMap<UserProfile,UserProfileForPostDTO >();
         
         
