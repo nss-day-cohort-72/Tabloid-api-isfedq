@@ -30,8 +30,8 @@ namespace Tabloid_api_isfedq.Controllers;
         [HttpGet("{id}")]
         public IActionResult GetDetails(int id)
         {
-            var post = _DbContext.Posts
-            .ProjectTo<AllPostListDTO>(_mapper.ConfigurationProvider)
+            PostDetailDTO post = _DbContext.Posts
+            .ProjectTo<PostDetailDTO>(_mapper.ConfigurationProvider)
             .FirstOrDefault(p => p.Id == id);
             if (post == null)
             {
