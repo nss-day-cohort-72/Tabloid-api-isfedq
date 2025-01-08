@@ -39,6 +39,16 @@ namespace Tabloid_api_isfedq.Controllers;
             }
             return Ok(post);
         }
+        [HttpPost]
+        public IActionResult Add([FromBody] AddPostDTO post)
+        {   
+            Post newPost = _mapper.Map<Post>(post);
+            newPost.PublicationDate = DateTime.Now;
+            newPost.Approved = true;
+            _DbContext.Posts.Add(newPost);
+            _DbContext.SaveChanges();
+            return Created($"api/post/{newPost.Id}", newPost);
+        }
         
         
        

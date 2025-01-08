@@ -16,7 +16,7 @@ public class AutoMapperProfiles : Profile
         CreateMap<Reaction, ReactionDTO>();
         CreateMap<Category, CategoryDTO>();
         CreateMap<UserProfile, UserProfileForPostDTO>();
-        CreateMap<Post, AddPostDTO>();
+        CreateMap<AddPostDTO, Post >();
 
   
         
