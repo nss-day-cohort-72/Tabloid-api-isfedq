@@ -28,4 +28,22 @@ namespace Tabloid.Models.DTOs
         public UserProfileForPostDTO UserProfile { get; set; }
         public CategoryDTO Category { get; set; }
     }
+    public class AddPostDTO
+    {
+        public string Title { get; set; }
+        public int UserProfileId { get; set; }
+        public string Content { get; set; }
+        public int CategoryId { get; set; }
+        public string? HeaderImageUrl { get; set; }
+
+    }
+    public class UpdatePostDTO
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
+        public int CategoryId { get; set; }
+        public string? HeaderImageUrl { get; set; }
+
+    }
 }
