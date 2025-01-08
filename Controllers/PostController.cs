@@ -49,6 +49,39 @@ namespace Tabloid_api_isfedq.Controllers;
             _DbContext.SaveChanges();
             return Created($"api/post/{newPost.Id}", newPost);
         }
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, UpdatePostDTO post)
+        {
+            if (id != post.Id)
+            {
+                return BadRequest();
+            }
+            
+            Post dbPost = _DbContext.Posts.Find(id);
+            if (dbPost == null)
+            {
+                return NotFound();
+            }
+            dbPost.Title = post.Title;
+            dbPost.Content = post.Content;
+            dbPost.CategoryId = post.CategoryId;
+            dbPost.HeaderImageUrl = post.HeaderImageUrl;
+
+            _DbContext.SaveChanges();
+            return NoContent();
+        }
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            Post post = _DbContext.Posts.Find(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            _DbContext.Posts.Remove(post);
+            _DbContext.SaveChanges();
+            return NoContent();
+        }
         
         
        

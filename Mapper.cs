@@ -17,6 +17,7 @@ public class AutoMapperProfiles : Profile
         CreateMap<Category, CategoryDTO>();
         CreateMap<UserProfile, UserProfileForPostDTO>();
         CreateMap<AddPostDTO, Post >();
+        CreateMap<UpdatePostDTO, Post >();
 
   
         
