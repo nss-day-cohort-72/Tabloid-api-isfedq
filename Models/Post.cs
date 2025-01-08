@@ -12,8 +12,8 @@ public class Post
     public int CategoryId { get; set; }
     public bool Approved { get; set; }
     public Category Category { get; set; }
-    public string HeaderImageUrl { get; set; }
-    public DateTime PublicationDate { get; set; }
+    public string? HeaderImageUrl { get; set; }
+    public DateTime? PublicationDate { get; set; }
     public int ReadTime { get; set; }
     public List<Comment> Comments { get; set; }
     public List<Tag> Tags { get; set; }
