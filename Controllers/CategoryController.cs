@@ -25,7 +25,7 @@ public class CategoryController : ControllerBase
         {
             Id = c.Id,
             Name = c.Name
-        }).ToList();
+        }).OrderBy(c => c.Name).ToList();
         return Ok(categoriesDTO);
     }
 
