@@ -7,7 +7,12 @@ namespace Tabloid.Models.DTOs
         public int Id { get; set; }
         public string Title { get; set; }
         public int UserProfileId { get; set; }
+        public string HeaderImageUrl { get; set; }
+        public string Content { get; set; }
+        public int CategoryId { get; set; }
+        public CategoryDTO Category { get; set; }
         public bool Approved { get; set; }
+        public int ReadTime { get; set; }
         public DateTime PublicationDate { get; set; }
         public UserProfileForPostDTO UserProfile { get; set; }
     }

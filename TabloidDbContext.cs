@@ -226,6 +226,5 @@ public class TabloidDbContext : IdentityDbContext<IdentityUser>
             new { PostsId = 6, TagsId = 3 }
             
         ));
-        
     }
 }

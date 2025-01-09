@@ -82,6 +82,12 @@ namespace Tabloid.Controllers;
             _DbContext.SaveChanges();
             return NoContent();
         }
+        [HttpGet("getbyuser/{id}")]
+        public IActionResult GetPostByUser(int id)
+        {
+            return Ok(_DbContext.Posts.ProjectTo<AllPostListDTO>(_mapper.ConfigurationProvider)
+            .Where(p => p.UserProfileId == id));
+        }
         
         
        
