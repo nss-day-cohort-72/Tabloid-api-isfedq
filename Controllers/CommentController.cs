@@ -24,7 +24,6 @@ public class CommentsController : ControllerBase
         {
             return BadRequest(ModelState);
         }
-
         var comment = new Comment
         {
             PostId = createCommentDto.PostId,
@@ -32,10 +31,8 @@ public class CommentsController : ControllerBase
             Content = createCommentDto.Content,
             CreationDate = DateTime.UtcNow
         };
-
         _context.Comments.Add(comment);
         await _context.SaveChangesAsync();
-
         return CreatedAtAction(nameof(GetComment), new { id = comment.Id }, comment);
     }
 

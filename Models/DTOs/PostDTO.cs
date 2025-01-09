@@ -55,7 +55,7 @@ namespace Tabloid.Models.DTOs
         public int CategoryId { get; set; }
         public bool Approved { get; set; }
         public string HeaderImageUrl { get; set; }
-        public DateTime PublicationDate { get; set; }
+        public DateTime? PublicationDate { get; set; }
         public int ReadTime { get; set; }
         public List<CommentDTO> Comments { get; set; }
         public List<TagDTO> Tags { get; set; }

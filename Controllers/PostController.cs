@@ -6,7 +6,7 @@ using Tabloid.Data;
 using Tabloid.Models;
 using Tabloid.Models.DTOs;
 
-namespace Tabloid_api_isfedq.Controllers;
+namespace Tabloid.Controllers;
 
     [Route("api/[controller]")]
     [ApiController]

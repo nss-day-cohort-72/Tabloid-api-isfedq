@@ -17,6 +17,18 @@ public class CategoryController : ControllerBase
     {
         _context = context;
     }
+    [HttpGet("basic")]
+    public IActionResult GetBasic()
+    {
+        var categories = _context.Categories;
+        List<CategoryDTO> categoriesDTO = categories.Select(c => new CategoryDTO
+        {
+            Id = c.Id,
+            Name = c.Name
+        }).ToList();
+        return Ok(categoriesDTO);
+    }
+
     [HttpGet]
     public IActionResult Get()
     {
@@ -34,7 +46,25 @@ public class CategoryController : ControllerBase
                 CategoryId = p.CategoryId,
                 Approved = p.Approved,
                 HeaderImageUrl = p.HeaderImageUrl,
-                
+                PublicationDate = p.PublicationDate,
+                ReadTime = p.ReadTime,
+                Comments = p.Comments.Select(c => new CommentDTO
+                {
+                    Id = c.Id,
+                    Content = c.Content,
+                    PostId = c.PostId,
+                    Subject = c.Subject,
+                    UserProfileId = c.UserProfileId,
+                    CreationDate = c.CreationDate,
+                    UserProfile = new UserProfileForPostDTO
+                    {
+                        Id = c.UserProfile.Id,
+                        FirstName = c.UserProfile.FirstName,
+                        LastName = c.UserProfile.LastName,
+                        FullName = c.UserProfile.FullName,
+                    }
+                }).ToList()
+
             }).ToList()
             
         }).ToList();
@@ -67,7 +97,6 @@ public class CategoryController : ControllerBase
         _context.Add(category);
         _context.SaveChanges();
         return Ok($"{category.Name} with id of {category.Id} was added to the database");
-        // return CreatedAtAction("Get", new { id = category.Id }, category);
     }
 
     [HttpPut("{id}")]
@@ -99,6 +128,6 @@ public class CategoryController : ControllerBase
         }
         _context.Categories.Remove(category);
         _context.SaveChanges();
-        return NoContent();
+        return Ok($"{category.Name} with id of {category.Id} was removed from the database");
     }
 }
