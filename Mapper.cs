@@ -12,6 +12,7 @@ public class AutoMapperProfiles : Profile
         CreateMap<Post, PostDetailDTO>();
         CreateMap<Comment, CommentDTO>();
         CreateMap<Tag,TagDTO >();
+        CreateMap<TagDTO, Tag>();
         CreateMap<PostReaction, PostReactionDTO>();
         CreateMap<Reaction, ReactionDTO>();
         CreateMap<Category, CategoryDTO>();
