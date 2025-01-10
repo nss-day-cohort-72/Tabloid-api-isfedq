@@ -1,7 +1,11 @@
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using AutoMapper;
 using Tabloid.Data;
+using Tabloid.Models;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +16,9 @@ builder.Services.AddControllers().AddJsonOptions(opts =>
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 builder.Services.AddSwaggerGen();
+
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
