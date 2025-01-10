@@ -9,12 +9,7 @@ public class TabloidDbContext : IdentityDbContext<IdentityUser>
     private readonly IConfiguration _configuration;
 
     public DbSet<UserProfile> UserProfiles { get; set; }
-    public DbSet<Post> Posts { get; set; }
-    public DbSet<Category> Categories { get; set; }
-    public DbSet<Comment> Comments { get; set; }
-    public DbSet<Tag> Tags { get; set; }
-    public DbSet<Reaction> Reactions { get; set; }
-    
+
 
     public TabloidDbContext(DbContextOptions<TabloidDbContext> context, IConfiguration config) : base(context)
     {
@@ -150,81 +145,5 @@ public class TabloidDbContext : IdentityDbContext<IdentityUser>
                 IdentityUserId = "d224a03d-bf0c-4a05-b728-e3521e45d74d",
             }
         });
-        modelBuilder.Entity<Subscription>().HasData(new Subscription[]
-        {
-            new Subscription { Id = 1, AuthorId = 1, SubscriberId = 2, StartDate = new DateTime(2024, 1, 25) },
-            new Subscription { Id = 2, AuthorId = 1, SubscriberId = 3, StartDate = new DateTime(2024, 1, 22) },
-            new Subscription { Id = 3, AuthorId = 2, SubscriberId = 4, StartDate = new DateTime(2024, 1, 20) },
-            new Subscription { Id = 4, AuthorId = 3, SubscriberId = 5, StartDate = new DateTime(2024, 1, 18) },
-        });
-        modelBuilder.Entity<Category>().HasData(new Category[]
-        {
-            new Category { Id = 1, Name = "Help" },
-            new Category { Id = 2, Name = "Food" },
-            new Category { Id = 3, Name = "Animals" },
-            new Category { Id = 4, Name = "Misc" },
-            new Category { Id = 5, Name = "Vacationing" },
-            new Category { Id = 6, Name = "Tech" },
-        });
-        
-        modelBuilder.Entity<Tag>().HasData(new Tag[]
-        {
-            new Tag { Id = 1, Name = "Fun" },
-            new Tag { Id = 2, Name = "Sad" },
-            new Tag { Id = 3, Name = "Ouch" },
-        });
-
-        modelBuilder.Entity<Reaction>().HasData(new Reaction[]
-        {
-            new Reaction { Id = 1, Name = "👍" },
-            new Reaction { Id = 2, Name = "🤢" },
-            new Reaction { Id = 3, Name = "🤣" },
-            new Reaction { Id = 4, Name = "❤" },
-        });
-
-        modelBuilder.Entity<Post>().HasData(new Post[]
-        {
-            new Post { Id = 1, Title = "Why Does My Cat Bite My Leg?", UserProfileId = 1, Content = "I need help. My cat keeps biting my leg.", CategoryId = 1, Approved=true, HeaderImageUrl = "https://robohash.org/numquamutut.png?size=150x150&set=set1", PublicationDate = new DateTime(2025, 1, 7), ReadTime = 50 },
-            new Post { Id = 2, Title = "California Raisin", UserProfileId = 2, Content = "Hey! Does anybody remember the California Raisin guy?", CategoryId = 4, Approved=false, HeaderImageUrl = "https://robohash.org/numquamutut.png?size=150x150&set=set1", PublicationDate = new DateTime(2025, 1, 4), ReadTime = 30 },
-            new Post { Id = 3, Title = "The Future of AI", UserProfileId = 3, Content = "Exploring the advancements in AI technology.", CategoryId = 6, Approved=true, HeaderImageUrl = "https://robohash.org/futureai.png?size=150x150&set=set1", PublicationDate = new DateTime(2025, 2, 10), ReadTime = 25 },
-            new Post { Id = 4, Title = "Healthy Eating", UserProfileId = 4, Content = "Tips and tricks for a healthier diet.", CategoryId = 2, Approved=true, HeaderImageUrl = "https://robohash.org/healthyeating.png?size=150x150&set=set1", PublicationDate = new DateTime(2025, 3, 15), ReadTime = 60 },
-            new Post { Id = 5, Title = "Traveling the World", UserProfileId = 5, Content = "A guide to traveling the world on a budget.", Approved=true,CategoryId = 5, HeaderImageUrl = "https://robohash.org/travelworld.png?size=150x150&set=set1", PublicationDate = new DateTime(2025, 4, 20), ReadTime = 110 },
-            new Post { Id = 6, Title = "Tech Innovations", UserProfileId = 6, Content = "Latest innovations in the tech industry.", CategoryId = 6, Approved=true, HeaderImageUrl = "https://robohash.org/techinnovations.png?size=150x150&set=set1", PublicationDate = new DateTime(2025, 5, 25), ReadTime = 130 },
-        });
-        modelBuilder.Entity<Comment>().HasData(new Comment[]
-        {
-            new Comment { Id = 1, PostId = 1, UserProfileId = 1, Subject = "Ouch!", Content = "I'm sorry to hear that. Have you tried giving your cat a toy to play with instead?", CreationDate = new DateTime(2025, 1, 7) },
-            new Comment { Id = 2, PostId = 1, UserProfileId = 2, Subject = "Re: Ouch!", Content = "I have! But my cat still prefers my leg.", CreationDate = new DateTime(2025, 1, 8) },
-            new Comment { Id = 3 , PostId = 2, UserProfileId = 3, Subject = "California Raisin", Content = "Yes! I remember the California Raisin guy. He was so cool.", CreationDate = new DateTime(2025, 1, 9) },
-            new Comment { Id = 4, PostId = 3, UserProfileId = 4, Subject = "AI Technology", Content = "I'm excited to see where AI technology will take us in the future.", CreationDate = new DateTime(2025, 1, 10) },
-            new Comment { Id = 5 , PostId = 4, UserProfileId = 5, Subject = "Healthy Eating", Content = "Thanks for the tips! I'll definitely try them out.", CreationDate = new DateTime(2025, 1, 15) },
-            new Comment { Id = 6, PostId = 5, UserProfileId = 6, Subject = "Traveling the World", Content = "I've always wanted to travel the world. This guide is really helpful.", CreationDate = new DateTime(2025, 1, 8) },
-
-        });
-        modelBuilder.Entity<PostReaction>().HasData( new PostReaction[]
-        {
-            new PostReaction {Id=1, PostId = 1, ReactionId = 1, UserProfileId = 1 },
-            new PostReaction {Id=2, PostId = 1, ReactionId = 2, UserProfileId = 2 },
-            new PostReaction {Id=3, PostId = 2, ReactionId = 3, UserProfileId = 3 },
-            new PostReaction {Id=4, PostId = 3, ReactionId = 4, UserProfileId = 4 },
-            new PostReaction {Id=5, PostId = 4, ReactionId = 1, UserProfileId = 5 },
-            new PostReaction {Id=6, PostId = 5, ReactionId = 2, UserProfileId = 6 },
-            new PostReaction {Id=7, PostId = 6, ReactionId = 3, UserProfileId = 1 }
-        });
-
-
-        modelBuilder.Entity<Post>()
-        .HasMany(p => p.Tags)
-        .WithMany(t => t.Posts)
-        .UsingEntity(j => j.HasData(
-            new { PostsId = 1, TagsId = 3 },
-            new { PostsId = 1, TagsId = 2 },
-            new { PostsId = 2, TagsId = 1 },
-            new { PostsId = 3, TagsId = 1 },
-            new { PostsId = 4, TagsId = 1 },
-            new { PostsId = 5, TagsId = 1 },
-            new { PostsId = 6, TagsId = 3 }
-            
-        ));
     }
 }
