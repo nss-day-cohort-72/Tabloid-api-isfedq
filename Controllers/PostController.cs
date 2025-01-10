@@ -1,6 +1,7 @@
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using Tabloid.Data;
 using Tabloid.Models;
@@ -48,6 +49,30 @@ namespace Tabloid.Controllers;
             _DbContext.Posts.Add(newPost);
             _DbContext.SaveChanges();
             return Created($"api/post/{newPost.Id}", newPost);
+        }
+        [HttpPut("{id}/addtags")]
+        public IActionResult AddTags(int id, [FromBody]  TagsforPostDTO tags)
+        {   
+            var post = _DbContext.Posts.Include(p => p.Tags).FirstOrDefault(p => p.Id == id);
+            List<Tag> Tags = _DbContext.Tags
+            .Where(t => tags.Tags.Contains(t.Id)).ToList();
+            foreach (var tag in Tags)
+            {
+                if (!post.Tags.Any(pt => pt.Id == tag.Id))
+                {
+                    post.Tags.Add(tag);
+                }
+              
+            }
+            var tagsToRemove = post.Tags.Where(pt => !tags.Tags.Contains(pt.Id)).ToList();
+            foreach (var tag in tagsToRemove)
+            {
+                post.Tags.Remove(tag);
+            }
+
+            _DbContext.SaveChanges();
+            return NoContent();
+            
         }
         [HttpPut("{id}")]
         public IActionResult Update(int id, UpdatePostDTO post)
