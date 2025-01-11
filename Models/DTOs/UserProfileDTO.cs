@@ -6,6 +6,15 @@ namespace Tabloid.Models.DTOs
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FullName { get; set; }
+        
+    }
+    public class UserProfileForSubscriptionsDTO
+    {
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string FullName { get; set; }
+        public List<Post> Posts { get; set; }
 
         
     }

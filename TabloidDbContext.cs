@@ -225,7 +225,19 @@ public class TabloidDbContext : IdentityDbContext<IdentityUser>
             new { PostsId = 4, TagsId = 1 },
             new { PostsId = 5, TagsId = 1 },
             new { PostsId = 6, TagsId = 3 }
-            
         ));
+        // modelBuilder.Entity<Post>()
+        // .HasMany(p => p.Tags)
+        // .WithMany(t => t.Posts)
+        // .UsingEntity(j => j.HasData(
+        //     new { PostsId = 1, TagsId = 3 },
+        //     new { PostsId = 1, TagsId = 2 },
+        //     new { PostsId = 2, TagsId = 1 },
+        //     new { PostsId = 3, TagsId = 1 },
+        //     new { PostsId = 4, TagsId = 1 },
+        //     new { PostsId = 5, TagsId = 1 },
+        //     new { PostsId = 6, TagsId = 3 }
+        // ));
+
     }
 }
