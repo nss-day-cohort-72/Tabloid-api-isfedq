@@ -25,39 +25,41 @@ public class SubscriptionController : ControllerBase
         [HttpGet("get-subscriptions/{subscriberId}")]
         public IActionResult Get(int subscriberId)
         {
-            List<SubscriptionDTO> subscriptions = _DbContext.Subscriptions
-            .Where(s => s.SubscriberId == subscriberId && s.EndDate == null)
-            .Select(s => new SubscriptionDTO
-            {
-                Id = s.Id,
-                AuthorId = s.AuthorId,
-                Author = new UserProfileForSubscriptionsDTO
-                {
-                    Id = s.Author.Id,
-                    FirstName = s.Author.FirstName,
-                    LastName = s.Author.LastName,
-                    FullName = s.Author.FullName,
-                    Posts = s.Author.Posts
-                    .Where(p => p.Approved && p.PublicationDate < DateTime.Now)
-                    .Select(p => new Post
-                    {
-                        Id = p.Id,
-                        Title = p.Title,
-                        Content = p.Content,
-                        UserProfileId = p.UserProfileId,
-                        CategoryId = p.CategoryId,
-                        Approved = p.Approved,
-                        Category = p.Category,
-                        Tags = p.Tags,
-                        Comments = p.Comments,
-                        PostReactions = p.PostReactions
-                    }).ToList()
-                },
-                SubscriberId = s.SubscriberId,
-                StartDate = s.StartDate,
-                EndDate = s.EndDate
-            }).ToList();
-            return Ok(subscriptions);
+            return Ok(_DbContext.Subscriptions.ProjectTo<SubscriptionDTO>(_mapper.ConfigurationProvider)
+            .Where(s => s.SubscriberId == subscriberId && s.EndDate == null));
+            // List<SubscriptionDTO> subscriptions = _DbContext.Subscriptions
+            // .Where(s => s.SubscriberId == subscriberId && s.EndDate == null)
+            // .Select(s => new SubscriptionDTO
+            // {
+            //     Id = s.Id,
+            //     AuthorId = s.AuthorId,
+            //     Author = new UserProfileForSubscriptionsDTO
+            //     {
+            //         Id = s.Author.Id,
+            //         FirstName = s.Author.FirstName,
+            //         LastName = s.Author.LastName,
+            //         FullName = s.Author.FullName,
+            //         Posts = s.Author.Posts
+            //         .Where(p => p.Approved && p.PublicationDate < DateTime.Now)
+            //         .Select(p => new Post
+            //         {
+            //             Id = p.Id,
+            //             Title = p.Title,
+            //             Content = p.Content,
+            //             UserProfileId = p.UserProfileId,
+            //             CategoryId = p.CategoryId,
+            //             Approved = p.Approved,
+            //             Category = p.Category,
+            //             Tags = p.Tags,
+            //             Comments = p.Comments,
+            //             PostReactions = p.PostReactions
+            //         }).ToList()
+            //     },
+            //     SubscriberId = s.SubscriberId,
+            //     StartDate = s.StartDate,
+            //     EndDate = s.EndDate
+            // }).ToList();
+            // return Ok(subscriptions);
         }
         [HttpPost]
         public IActionResult Add(SubscriptionDTO subscriptionDTO)
